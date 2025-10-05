@@ -1,0 +1,168 @@
+.logoloop {
+  position: relative;
+  overflow-x: hidden;
+
+  --logoloop-gap: 32px;
+  --logoloop-logoHeight: 28px;
+  --logoloop-fadeColorAuto: #000000;
+  color: #ffda03; /* gold accent for icons via currentColor */
+  width: 100%;
+}
+
+/* Force gold color on links across all states */
+.logoloop .logoloop__link,
+.logoloop .logoloop__link:visited,
+.logoloop .logoloop__link:hover,
+.logoloop .logoloop__link:active,
+.logoloop .logoloop__link:focus {
+  color: #ffda03 !important;
+}
+
+.logoloop--scale-hover {
+  padding-top: calc(var(--logoloop-logoHeight) * 0.1);
+  padding-bottom: calc(var(--logoloop-logoHeight) * 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .logoloop {
+    --logoloop-fadeColorAuto: #0b0b0b;
+  }
+}
+
+.logoloop__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  user-select: none;
+}
+
+.logoloop__list {
+  display: flex;
+  align-items: center;
+  list-style: none; /* remove bullet/circle */
+  margin: 0;
+  padding: 0;
+}
+
+.logoloop__item {
+  flex: 0 0 auto;
+  margin-right: var(--logoloop-gap);
+  font-size: var(--logoloop-logoHeight);
+  line-height: 1;
+}
+
+.logoloop__item:last-child {
+  margin-right: var(--logoloop-gap);
+}
+
+.logoloop__node {
+  display: inline-flex;
+  align-items: center;
+  color: inherit; /* ensure icons inherit current color */
+}
+
+.logoloop__item img {
+  height: var(--logoloop-logoHeight);
+  width: auto;
+  display: block;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+  -webkit-user-drag: none;
+  pointer-events: none;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logoloop--scale-hover .logoloop__item {
+  overflow: visible;
+}
+
+.logoloop--scale-hover .logoloop__item:hover img,
+.logoloop--scale-hover .logoloop__item:hover .logoloop__node {
+  transform: scale(1.2);
+  transform-origin: center center;
+}
+
+/* Add gold glow on hover without changing color */
+.logoloop--scale-hover .logoloop__item:hover svg,
+.logoloop--scale-hover .logoloop__item:hover img,
+.logoloop--scale-hover .logoloop__item:hover .logoloop__node {
+  /* 70% less glow (alpha reduced to 30% of previous) */
+  filter: drop-shadow(0 0 6px rgba(255, 218, 3, 0.18))
+          drop-shadow(0 0 14px rgba(255, 218, 3, 0.105));
+}
+
+.logoloop--scale-hover .logoloop__node {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logoloop__link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: opacity 0.2s ease;
+  color: inherit; /* ensure anchors don't override icon color */
+}
+
+.logoloop__link:hover {
+  opacity: 1;
+}
+.logoloop svg {
+  color: inherit;          /* apply #ffda03 via currentColor */
+  fill: currentColor;      /* some icons rely on fill */
+  stroke: currentColor;    /* ensure stroked icons match */
+}
+
+/* Ensure nested SVG shapes also inherit the color */
+.logoloop svg * {
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
+
+
+.logoloop__link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.logoloop--fade::before,
+.logoloop--fade::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(24px, 8%, 120px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.logoloop--fade::before {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    var(--logoloop-fadeColor, var(--logoloop-fadeColorAuto)) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.logoloop--fade::after {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    var(--logoloop-fadeColor, var(--logoloop-fadeColorAuto)) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logoloop__track {
+    transform: translate3d(0, 0, 0) !important;
+  }
+
+  .logoloop__item img,
+  .logoloop__node {
+    transition: none !important;
+  }
+}
+
+

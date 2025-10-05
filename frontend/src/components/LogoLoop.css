@@ -1,0 +1,55 @@
+.logo-loop {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 20px 0;
+}
+
+.logo-loop::after,
+.logo-loop::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.logo-loop::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.9), rgba(0,0,0,0));
+}
+
+.logo-loop::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(0,0,0,0.9), rgba(0,0,0,0));
+}
+
+.logo-loop-track {
+  display: flex;
+  align-items: center;
+  will-change: transform;
+}
+
+.logo-loop-track-reverse {
+  animation-direction: reverse;
+}
+
+.logo-loop-item {
+  flex: 0 0 auto;
+  filter: grayscale(100%) brightness(0.9);
+  opacity: 0.9;
+  transition: filter 200ms ease, opacity 200ms ease, transform 200ms ease;
+  will-change: transform;
+}
+
+.logo-loop-item:hover {
+  filter: grayscale(0%) brightness(1.05);
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+/* keyframes removed; JS-driven loop now controls transform */
+
+
