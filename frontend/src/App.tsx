@@ -6,25 +6,15 @@ import LogoLoopBits from './components/LogoLoopBits'
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss } from 'react-icons/si'
 import BlurText from './components/BlurText'
 import LightRays from './components/LightRays'
-import { motion, AnimatePresence } from 'motion/react'
+import ClickSpark from './components/ClickSpark'
+import FluidGlass from './components/FluidGlass'
+// import BottomNavbar from './components/BottomNavbar'
+import Dock from './components/Dock'
+import { VscHome, VscAccount, VscArchive, VscSettingsGear } from 'react-icons/vsc'
  
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
-  const [showNav, setShowNav] = useState(false)
-
-  const navVariants: any = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0 }
-    }
-  }
-
-  const navItemVariants: any = {
-    hidden: { opacity: 0, x: 140 },
-    show: { opacity: 1, x: 0, transition: { type: 'spring', stiffness: 140, damping: 18 } }
-  }
 
   useEffect(() => {
     // Simulate loading time
@@ -70,12 +60,6 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    // Start button animations aligned with loading fade timing
-    const totalDelay = 3000 + 300 // loader 3s + extra 300ms
-    const t = setTimeout(() => setShowNav(true), totalDelay)
-    return () => clearTimeout(t)
-  }, [])
 
 
   if (isLoading) {
@@ -108,15 +92,17 @@ function App() {
   }
 
   return (
-    <div className="app-container">
-      <nav className="retro-navbar">
-        <div className="nav-brand">
-          <h1>Mohit Jangid</h1>
-          <span className="nav-subtitle">CINEMA CLASSIC</span>
-        </div>
-      </nav>
-      
-      <section id="home" className="home-section">
+    <ClickSpark
+      sparkColor='#ffda03'
+      sparkSize={12}
+      sparkRadius={20}
+      sparkCount={10}
+      duration={500}
+      easing='ease-out'
+      extraScale={1.2}
+    >
+             <div className="app-container">
+               <section id="home" className="home-section">
         <img 
           src={godfatherImage} 
           alt="The Godfather Movie Poster" 
@@ -144,38 +130,6 @@ function App() {
             />
           </div>
         </div>
-            <AnimatePresence initial={false}>
-            {showNav && (
-            <motion.div className="section-nav-buttons" key="nav-buttons"
-              variants={navVariants}
-              initial="hidden"
-              animate="show"
-              exit={{ opacity: 0 }}
-            >
-              <motion.button 
-                className="section-nav-btn" 
-                onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-                variants={navItemVariants}
-              >
-                ABOUT
-              </motion.button>
-              <motion.button 
-                className="section-nav-btn" 
-                onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-                variants={navItemVariants}
-              >
-                PROJECTS
-              </motion.button>
-              <motion.button 
-                className="section-nav-btn" 
-                onClick={() => document.getElementById('funtime')?.scrollIntoView({ behavior: 'smooth' })}
-                variants={navItemVariants}
-              >
-                FUNTIME
-              </motion.button>
-            </motion.div>
-            )}
-            </AnimatePresence>
             
           </section>
 
@@ -248,6 +202,29 @@ function App() {
         </div>
       </section>
 
+      <section id="fluidglass" className="fluidglass-section">
+        <div className="section-content">
+          <h2 className="section-title">FLUID GLASS</h2>
+          <div style={{ height: '600px', position: 'relative' }}>
+            <FluidGlass 
+              mode="lens"
+              lensProps={{
+                scale: 0.4,
+                ior: 1.5,
+                thickness: 8,
+                chromaticAberration: 0.3,
+                anisotropy: 0.05,
+                transmission: 1,
+                roughness: 0,
+                color: '#ffffff',
+                attenuationColor: '#ffffff',
+                attenuationDistance: 0.2
+              }}
+            />
+          </div>
+        </div>
+      </section>
+
       <section id="funtime" className="content-section">
         <div className="section-content">
           <h2 className="section-title">FUNTIME</h2>
@@ -257,9 +234,21 @@ function App() {
             <p>Join me on this journey through the art of cinema, where every frame is a work of art and every story is worth telling.</p>
           </div>
         </div>
-      </section>
-    </div>
-  )
-}
+               </section>
+             </div>
+             <Dock 
+               items={[
+                 { icon: <VscHome size={18} />, label: 'Home', onClick: () => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' }) },
+                 { icon: <VscAccount size={18} />, label: 'About', onClick: () => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) },
+                 { icon: <VscArchive size={18} />, label: 'Projects', onClick: () => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }) },
+                 { icon: <VscSettingsGear size={18} />, label: 'Fluid', onClick: () => document.getElementById('fluidglass')?.scrollIntoView({ behavior: 'smooth' }) },
+               ]}
+               panelHeight={68}
+               baseItemSize={50}
+               magnification={70}
+             />
+           </ClickSpark>
+         )
+       }
 
 export default App
