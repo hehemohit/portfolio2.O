@@ -476,6 +476,22 @@
     brightness(1.05);
 }
 
+/* Metallic logo specific styling */
+.metallic-logo-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.metallic-logo-container:hover {
+  transform: scale(1.02);
+  filter: 
+    drop-shadow(0 0 8px rgba(255, 218, 3, 0.3))
+    drop-shadow(0 0 16px rgba(255, 218, 3, 0.2))
+    drop-shadow(0 6px 12px rgba(0, 0, 0, 0.8))
+    brightness(1.05);
+}
+
+
 /* Logo description below the Mohit logo */
 .logo-description {
   position: absolute;
@@ -565,6 +581,8 @@
   );
   pointer-events: none;
 }
+
+
 
 /* Content Sections */
 .content-section {

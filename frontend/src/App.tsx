@@ -5,9 +5,9 @@ import { useState, useEffect } from 'react'
 import LogoLoopBits from './components/LogoLoopBits'
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss } from 'react-icons/si'
 import BlurText from './components/BlurText'
-import LightRays from './components/LightRays'
 import ClickSpark from './components/ClickSpark'
 import FluidGlass from './components/FluidGlass'
+import CardSwap, { Card } from './components/CardSwap'
 // import BottomNavbar from './components/BottomNavbar'
 import Dock from './components/Dock'
 import { VscHome, VscAccount, VscArchive, VscSettingsGear } from 'react-icons/vsc'
@@ -123,7 +123,7 @@ function App() {
           />
           <div className="logo-description">
             <BlurText
-              text={"I’m Mohit Jangid — a developer and creator blending classic cinematic aesthetics with modern web engineering. I design and build smooth, high-impact experiences with React, Next.js, TypeScript, and motion-first interfaces."}
+              text={"I'm Mohit Jangid — a developer and creator blending classic cinematic aesthetics with modern web engineering. I design and build smooth, high-impact experiences with React, Next.js, TypeScript, and motion-first interfaces."}
               delay={120}
               animateBy="words"
               direction="top"
@@ -135,27 +135,78 @@ function App() {
           </section>
 
       <section id="about" className="content-section">
-        <div className="section-content">
-          <h2 className="section-title">ABOUT</h2>
-          <div className="section-text">
-            <p>Welcome to my cinematic world. I'm Mohit Jangid, a passionate creator who brings stories to life through the lens of classic cinema.</p>
-            <p>Drawing inspiration from timeless masterpieces like The Godfather, I craft experiences that blend the golden age of filmmaking with modern innovation.</p>
-            <p>Every project is a tribute to the art of storytelling, where every frame tells a story and every moment is crafted with precision.</p>
-          </div>
-        </div>
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none' }}>
-          <LightRays
-            raysOrigin="top-center"
-            raysColor="#ffda03"
-            raysSpeed={1.5}
-            lightSpread={0.8}
-            rayLength={1.8}
-            followMouse={true}
-            mouseInfluence={0.1}
-            noiseAmount={0.1}
-            distortion={0.05}
-            className="custom-rays"
-          />
+        <div style={{ height: '600px', position: 'relative' }}>
+          <CardSwap
+            cardDistance={60}
+            verticalDistance={70}
+            delay={5000}
+            pauseOnHover={false}
+            onCardClick={() => {}}
+          >
+            <Card style={{ 
+              background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(26,26,26,0.95) 100%)',
+              border: '1px solid rgba(255, 218, 3, 0.3)',
+              color: '#ffffff',
+              padding: '30px',
+              fontFamily: "'Rajdhani', sans-serif"
+            }}>
+              <h3 style={{ 
+                color: '#ffda03', 
+                fontSize: '1.8rem', 
+                marginBottom: '20px',
+                textShadow: '0 0 10px rgba(255, 218, 3, 0.5)'
+              }}>CINEMATIC VISION</h3>
+              <p style={{ 
+                lineHeight: '1.6', 
+                fontSize: '1.1rem',
+                textShadow: '1px 1px 3px rgba(0,0,0,0.8)'
+              }}>
+                Drawing inspiration from timeless masterpieces like The Godfather, I craft experiences that blend the golden age of filmmaking with modern innovation.
+              </p>
+            </Card>
+            <Card style={{ 
+              background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(26,26,26,0.95) 100%)',
+              border: '1px solid rgba(255, 218, 3, 0.3)',
+              color: '#ffffff',
+              padding: '30px',
+              fontFamily: "'Rajdhani', sans-serif"
+            }}>
+              <h3 style={{ 
+                color: '#ffda03', 
+                fontSize: '1.8rem', 
+                marginBottom: '20px',
+                textShadow: '0 0 10px rgba(255, 218, 3, 0.5)'
+              }}>STORYTELLING</h3>
+              <p style={{ 
+                lineHeight: '1.6', 
+                fontSize: '1.1rem',
+                textShadow: '1px 1px 3px rgba(0,0,0,0.8)'
+              }}>
+                Every project is a tribute to the art of storytelling, where every frame tells a story and every moment is crafted with precision.
+              </p>
+            </Card>
+            <Card style={{ 
+              background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(26,26,26,0.95) 100%)',
+              border: '1px solid rgba(255, 218, 3, 0.3)',
+              color: '#ffffff',
+              padding: '30px',
+              fontFamily: "'Rajdhani', sans-serif"
+            }}>
+              <h3 style={{ 
+                color: '#ffda03', 
+                fontSize: '1.8rem', 
+                marginBottom: '20px',
+                textShadow: '0 0 10px rgba(255, 218, 3, 0.5)'
+              }}>MODERN INNOVATION</h3>
+              <p style={{ 
+                lineHeight: '1.6', 
+                fontSize: '1.1rem',
+                textShadow: '1px 1px 3px rgba(0,0,0,0.8)'
+              }}>
+                Welcome to my cinematic world. I'm Mohit Jangid, a passionate creator who brings stories to life through the lens of classic cinema.
+              </p>
+            </Card>
+          </CardSwap>
         </div>
       </section>
 
