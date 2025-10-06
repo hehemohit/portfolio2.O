@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "installCommand": "npm --prefix portfolio2.O/frontend ci",
+  "installCommand": "npm --prefix portfolio2.O/frontend install",
   "buildCommand": "npm --prefix portfolio2.O/frontend run build",
   "outputDirectory": "portfolio2.O/frontend/dist",
   "framework": "vite",
