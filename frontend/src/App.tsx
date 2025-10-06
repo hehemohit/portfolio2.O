@@ -11,6 +11,7 @@ import FluidGlass from './components/FluidGlass'
 // import BottomNavbar from './components/BottomNavbar'
 import Dock from './components/Dock'
 import { VscHome, VscAccount, VscArchive, VscSettingsGear } from 'react-icons/vsc'
+import { FaGamepad } from 'react-icons/fa'
  
 
 function App() {
@@ -242,6 +243,7 @@ function App() {
                  { icon: <VscAccount size={18} />, label: 'About', onClick: () => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) },
                  { icon: <VscArchive size={18} />, label: 'Projects', onClick: () => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }) },
                  { icon: <VscSettingsGear size={18} />, label: 'Fluid', onClick: () => document.getElementById('fluidglass')?.scrollIntoView({ behavior: 'smooth' }) },
+                 { icon: <FaGamepad size={18} />, label: 'Funtime', onClick: () => document.getElementById('funtime')?.scrollIntoView({ behavior: 'smooth' }) },
                ]}
                panelHeight={68}
                baseItemSize={50}

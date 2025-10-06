@@ -1,7 +1,8 @@
 'use client';
 
-import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'motion/react';
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence, useMotionTemplate, type MotionValue } from 'motion/react';
 import { Children, cloneElement, useEffect, useMemo, useRef, useState } from 'react';
+import { FaBars } from 'react-icons/fa';
 import './Dock.css';
 
 type SpringConfig = { mass: number; stiffness: number; damping: number };
@@ -10,7 +11,7 @@ type DockItemProps = {
   children: React.ReactElement | React.ReactElement[];
   className?: string;
   onClick?: () => void;
-  mouseX: ReturnType<typeof useMotionValue>;
+  mouseX: MotionValue<number>;
   spring: SpringConfig;
   distance: number;
   magnification: number;
@@ -21,7 +22,7 @@ function DockItem({ children, className = '', onClick, mouseX, spring, distance,
   const ref = useRef<HTMLDivElement | null>(null);
   const isHovered = useMotionValue(0);
 
-  const mouseDistance = useTransform(mouseX, (val) => {
+  const mouseDistance = useTransform(mouseX, (val: number) => {
     const rect = ref.current?.getBoundingClientRect() ?? { x: 0, width: baseItemSize } as DOMRect;
     return val - rect.x - baseItemSize / 2;
   });
@@ -101,12 +102,41 @@ export default function Dock({
   dockHeight?: number;
   baseItemSize?: number;
 }) {
-  const mouseX = useMotionValue(Infinity);
-  const isHovered = useMotionValue(0);
+  const mouseX = useMotionValue<number>(Infinity);
+  const isHovered = useMotionValue<number>(0);
 
   const maxHeight = useMemo(() => Math.max(dockHeight, magnification + magnification / 2 + 4), [magnification, dockHeight]);
+  // Container grows from MENU height to full dock height
   const heightRow = useTransform(isHovered, [0, 1], [panelHeight, maxHeight]);
   const height = useSpring(heightRow, spring);
+
+  // Reveal animation for expanding/shrinking from center
+  const revealRaw = useTransform(isHovered, [0, 1], [0, 1]);
+  const reveal = useSpring(revealRaw, spring);
+  const itemsScaleX = useTransform(reveal, [0, 1], [0, 1]); // scaleX 0 -> 1
+  const itemsOpacity = useTransform(reveal, [0, 0.2, 1], [0, 0.4, 1]);
+  const dockOpacity = useTransform(reveal, [0, 1], [0.6, 1]);
+  const dockOpacityVar = useMotionTemplate`${dockOpacity}`;
+  const menuOpacity = useTransform(reveal, [0, 1], [1, 0]);
+
+  // Width animation: collapsed equals one button width, expanded equals content width
+  const itemsRef = useRef<HTMLDivElement | null>(null);
+  const [expandedWidth, setExpandedWidth] = useState<number>(0);
+  const horizontalPadding = 32; // approximate internal horizontal paddings
+  const collapsedWidth = baseItemSize + horizontalPadding;
+
+  useEffect(() => {
+    const update = () => {
+      const w = itemsRef.current?.scrollWidth ?? 0;
+      setExpandedWidth(Math.max(w + horizontalPadding, collapsedWidth));
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, [collapsedWidth, items.length]);
+
+  const widthRow = useTransform(reveal, [0, 1], [collapsedWidth, expandedWidth]);
+  const panelWidth = useSpring(widthRow, spring);
 
   return (
     <motion.div style={{ height, scrollbarWidth: 'none' as any }} className="dock-outer">
@@ -120,25 +150,36 @@ export default function Dock({
           mouseX.set(Infinity);
         }}
         className={`dock-panel ${className}`}
-        style={{ height: panelHeight }}
+        style={{ height: panelHeight, width: panelWidth as unknown as number, ['--dockOpacity' as any]: dockOpacityVar } as any}
         role="toolbar"
         aria-label="Application dock"
       >
-        {items.map((item, index) => (
-          <DockItem
-            key={index}
-            onClick={item.onClick}
-            className={item.className}
-            mouseX={mouseX}
-            spring={spring}
-            distance={distance}
-            magnification={magnification}
-            baseItemSize={baseItemSize}
-          >
-            <DockIcon>{item.icon}</DockIcon>
-            <DockLabel>{item.label}</DockLabel>
-          </DockItem>
-        ))}
+        {/* Hamburger icon shown only when collapsed */}
+        <motion.div className="dock-hamburger" style={{ opacity: menuOpacity }}>
+          <FaBars size={18} />
+        </motion.div>
+        {/* Expanding items container */}
+        <motion.div
+          className="dock-items"
+          style={{ scaleX: itemsScaleX, opacity: itemsOpacity, transformOrigin: '50% 100%' }}
+          ref={itemsRef}
+        >
+          {items.map((item, index) => (
+            <DockItem
+              key={index}
+              onClick={item.onClick}
+              className={item.className}
+              mouseX={mouseX}
+              spring={spring}
+              distance={distance}
+              magnification={magnification}
+              baseItemSize={baseItemSize}
+            >
+              <DockIcon>{item.icon}</DockIcon>
+              <DockLabel>{item.label}</DockLabel>
+            </DockItem>
+          ))}
+        </motion.div>
       </motion.div>
     </motion.div>
   );
