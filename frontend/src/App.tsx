@@ -7,7 +7,8 @@ import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss } from 'react-icons/s
 import BlurText from './components/BlurText'
 import ClickSpark from './components/ClickSpark'
 import FluidGlass from './components/FluidGlass'
-import CardSwap, { Card } from './components/CardSwap'
+import ScrambledText from './components/ScrambledText'
+import GlitchEffect from './components/GlitchEffect'
 // import BottomNavbar from './components/BottomNavbar'
 import Dock from './components/Dock'
 import { VscHome, VscAccount, VscArchive, VscSettingsGear } from 'react-icons/vsc'
@@ -135,79 +136,37 @@ function App() {
           </section>
 
       <section id="about" className="content-section">
-        <div style={{ height: '600px', position: 'relative' }}>
-          <CardSwap
-            cardDistance={60}
-            verticalDistance={70}
-            delay={5000}
-            pauseOnHover={false}
-            onCardClick={() => {}}
-          >
-            <Card style={{ 
-              background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(26,26,26,0.95) 100%)',
-              border: '1px solid rgba(255, 218, 3, 0.3)',
-              color: '#ffffff',
-              padding: '30px',
-              fontFamily: "'Rajdhani', sans-serif"
-            }}>
-              <h3 style={{ 
-                color: '#ffda03', 
-                fontSize: '1.8rem', 
-                marginBottom: '20px',
-                textShadow: '0 0 10px rgba(255, 218, 3, 0.5)'
-              }}>CINEMATIC VISION</h3>
-              <p style={{ 
-                lineHeight: '1.6', 
-                fontSize: '1.1rem',
-                textShadow: '1px 1px 3px rgba(0,0,0,0.8)'
-              }}>
-                Drawing inspiration from timeless masterpieces like The Godfather, I craft experiences that blend the golden age of filmmaking with modern innovation.
-              </p>
-            </Card>
-            <Card style={{ 
-              background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(26,26,26,0.95) 100%)',
-              border: '1px solid rgba(255, 218, 3, 0.3)',
-              color: '#ffffff',
-              padding: '30px',
-              fontFamily: "'Rajdhani', sans-serif"
-            }}>
-              <h3 style={{ 
-                color: '#ffda03', 
-                fontSize: '1.8rem', 
-                marginBottom: '20px',
-                textShadow: '0 0 10px rgba(255, 218, 3, 0.5)'
-              }}>STORYTELLING</h3>
-              <p style={{ 
-                lineHeight: '1.6', 
-                fontSize: '1.1rem',
-                textShadow: '1px 1px 3px rgba(0,0,0,0.8)'
-              }}>
-                Every project is a tribute to the art of storytelling, where every frame tells a story and every moment is crafted with precision.
-              </p>
-            </Card>
-            <Card style={{ 
-              background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(26,26,26,0.95) 100%)',
-              border: '1px solid rgba(255, 218, 3, 0.3)',
-              color: '#ffffff',
-              padding: '30px',
-              fontFamily: "'Rajdhani', sans-serif"
-            }}>
-              <h3 style={{ 
-                color: '#ffda03', 
-                fontSize: '1.8rem', 
-                marginBottom: '20px',
-                textShadow: '0 0 10px rgba(255, 218, 3, 0.5)'
-              }}>MODERN INNOVATION</h3>
-              <p style={{ 
-                lineHeight: '1.6', 
-                fontSize: '1.1rem',
-                textShadow: '1px 1px 3px rgba(0,0,0,0.8)'
-              }}>
-                Welcome to my cinematic world. I'm Mohit Jangid, a passionate creator who brings stories to life through the lens of classic cinema.
-              </p>
-            </Card>
-          </CardSwap>
-        </div>
+        <GlitchEffect 
+          className="about-glitch" 
+          intensity="low" 
+          duration={800}
+          triggerOnHover={true}
+          autoTrigger={false}
+        >
+          <div className="about-section-content">
+            <h2 className="about-section-title">Who is mohit?</h2>
+            <div className="about-section-text">
+              <ScrambledText
+                className="about-scrambled-text"
+                radius={80}
+                duration={1.0}
+                speed={0.3}
+                scrambleChars=".:"
+              >
+                "I am a dedicated Computer Engineering student at Universal College of Engineering and a current Web Developer Intern at DigitalVigyapan. My passion lies in creating impactful digital solutions, demonstrated through my work on an Agency Management Software and developing fully functional client websites using WordPress. I combine my technical skills with a strong foundation in social media strategy and brand management to build comprehensive and user-focused web experiences."
+              </ScrambledText>
+              <ScrambledText
+                className="about-scrambled-text"
+                radius={80}
+                duration={1.0}
+                speed={0.3}
+                scrambleChars=".:"
+              >
+                "Alongside my technical roles, I have spent over 10 years immersed in the world of digital content creation on YouTube. This journey has evolved into a successful freelance career where I serve as a content writer and video editor manager for creators with audiences exceeding 800,000 subscribers. By applying my strategic knowledge, I have also grown my own channel to over 12,000 subscribers. This experience has given me a deep, practical understanding of brand management, audience engagement, and the full lifecycle of digital content, from ideation to execution."
+              </ScrambledText>
+            </div>
+          </div>
+        </GlitchEffect>
       </section>
 
       {/* Logo Loop between About and Projects */}

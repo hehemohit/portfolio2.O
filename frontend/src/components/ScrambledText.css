@@ -1,0 +1,13 @@
+.text-block {
+  margin: 0;
+  max-width: 800px;
+  font-family: 'Arial', sans-serif;
+  font-size: 1.1rem;
+  color: #000000;
+  line-height: 1.8;
+}
+
+.char {
+  will-change: transform;
+  display: inline-block;
+}

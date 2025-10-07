@@ -703,6 +703,60 @@
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
 }
 
+/* About Section - Left Aligned */
+#about.content-section {
+  align-items: flex-start;
+  justify-content: flex-start;
+  background: #ffffff;
+}
+
+.about-section-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+  max-width: 800px;
+  margin: 0;
+  padding: 40px;
+  width: 100%;
+}
+
+.about-section-title {
+  font-family: 'Times New Roman', serif;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #000000;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  margin-bottom: 40px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.about-section-text {
+  font-family: 'Arial', sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #000000;
+  text-align: left;
+}
+
+.about-section-text p {
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.about-scrambled-text {
+  margin-bottom: 20px;
+}
+
+.about-glitch {
+  width: 100%;
+  height: 100%;
+}
+
+
 /* Mobile responsive design */
 @media (max-width: 768px) {
   .bottom-navbar {
@@ -761,6 +815,20 @@
   
   .project-card h3 {
     font-size: 1.3rem;
+  }
+  
+  .about-section-content {
+    padding: 20px;
+  }
+  
+  .about-section-title {
+    font-size: 2rem;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+  }
+  
+  .about-section-text {
+    font-size: 1rem;
   }
   
   .logo-overlay {
