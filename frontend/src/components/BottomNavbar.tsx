@@ -24,7 +24,12 @@ export default function BottomNavbar() {
     <nav className="bottom-navbar">
       <div className="nav-links">
         {items.map((item) => (
-          <span key={item.id} className="nav-link" onClick={() => onJump(item.id)}>
+          <span 
+            key={item.id} 
+            className="nav-link" 
+            data-section={item.id}
+            onClick={() => onJump(item.id)}
+          >
             {item.icon}
             {item.label}
           </span>

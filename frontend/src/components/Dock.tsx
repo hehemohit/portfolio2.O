@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useMotionValue, useSpring, useTransform, AnimatePresence, useMotionTemplate, type MotionValue } from 'motion/react';
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence, useMotionTemplate, type MotionValue } from 'framer-motion';
 import { Children, cloneElement, useEffect, useMemo, useRef, useState } from 'react';
 import { FaBars } from 'react-icons/fa';
 import './Dock.css';
@@ -104,11 +104,41 @@ export default function Dock({
 }) {
   const mouseX = useMotionValue<number>(Infinity);
   const isHovered = useMotionValue<number>(0);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [scrollOpacity, setScrollOpacity] = useState(1);
 
   const maxHeight = useMemo(() => Math.max(dockHeight, magnification + magnification / 2 + 4), [magnification, dockHeight]);
   // Container grows from MENU height to full dock height
   const heightRow = useTransform(isHovered, [0, 1], [panelHeight, maxHeight]);
   const height = useSpring(heightRow, spring);
+
+  // Scroll detection for hide/show functionality
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      console.log('Scroll detected:', currentScrollY, 'Last:', lastScrollY);
+      
+      // Only trigger if scroll difference is significant (more than 5px)
+      if (Math.abs(currentScrollY - lastScrollY) > 5) {
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+          // Scrolling down - hide dock with fade out
+          console.log('Hiding dock');
+          setScrollOpacity(0);
+          setIsVisible(false);
+        } else if (currentScrollY < lastScrollY) {
+          // Scrolling up - show dock with fade in
+          console.log('Showing dock');
+          setScrollOpacity(1);
+          setIsVisible(true);
+        }
+        setLastScrollY(currentScrollY);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   // Reveal animation for expanding/shrinking from center
   const revealRaw = useTransform(isHovered, [0, 1], [0, 1]);
@@ -139,50 +169,62 @@ export default function Dock({
   const panelWidth = useSpring(widthRow, spring);
 
   return (
-    <motion.div style={{ height, scrollbarWidth: 'none' as any }} className="dock-outer">
-      <motion.div
-        onMouseMove={({ pageX }) => {
-          isHovered.set(1);
-          mouseX.set(pageX);
-        }}
-        onMouseLeave={() => {
-          isHovered.set(0);
-          mouseX.set(Infinity);
-        }}
-        className={`dock-panel ${className}`}
-        style={{ height: panelHeight, width: panelWidth as unknown as number, ['--dockOpacity' as any]: dockOpacityVar } as any}
-        role="toolbar"
-        aria-label="Application dock"
-      >
-        {/* Hamburger icon shown only when collapsed */}
-        <motion.div className="dock-hamburger" style={{ opacity: menuOpacity }}>
-          <FaBars size={18} />
-        </motion.div>
-        {/* Expanding items container */}
-        <motion.div
-          className="dock-items"
-          style={{ scaleX: itemsScaleX, opacity: itemsOpacity, transformOrigin: '50% 100%' }}
-          ref={itemsRef}
-        >
-          {items.map((item, index) => (
-            <DockItem
-              key={index}
-              onClick={item.onClick}
-              className={item.className}
-              mouseX={mouseX}
-              spring={spring}
-              distance={distance}
-              magnification={magnification}
-              baseItemSize={baseItemSize}
+    <motion.div 
+      style={{ 
+        height, 
+        scrollbarWidth: 'none' as any,
+        pointerEvents: isVisible ? 'auto' : 'none'
+      }} 
+      className="dock-outer"
+      animate={{ 
+        opacity: scrollOpacity 
+      }}
+      transition={{ 
+        duration: 0.3, 
+        ease: "easeInOut"
+      }}
+    >
+          <motion.div
+            onMouseMove={({ pageX }) => {
+              isHovered.set(1);
+              mouseX.set(pageX);
+            }}
+            onMouseLeave={() => {
+              isHovered.set(0);
+              mouseX.set(Infinity);
+            }}
+            className={`dock-panel ${className}`}
+            style={{ height: panelHeight, width: panelWidth as unknown as number, ['--dockOpacity' as any]: dockOpacityVar } as any}
+            role="toolbar"
+            aria-label="Application dock"
+          >
+            {/* Hamburger icon shown only when collapsed */}
+            <motion.div className="dock-hamburger" style={{ opacity: menuOpacity }}>
+              <FaBars size={18} />
+            </motion.div>
+            {/* Expanding items container */}
+            <motion.div
+              className="dock-items"
+              style={{ scaleX: itemsScaleX, opacity: itemsOpacity, transformOrigin: '50% 100%' }}
+              ref={itemsRef}
             >
-              <DockIcon>{item.icon}</DockIcon>
-              <DockLabel>{item.label}</DockLabel>
-            </DockItem>
-          ))}
-        </motion.div>
-      </motion.div>
+              {items.map((item, index) => (
+                <DockItem
+                  key={index}
+                  onClick={item.onClick}
+                  className={item.className}
+                  mouseX={mouseX}
+                  spring={spring}
+                  distance={distance}
+                  magnification={magnification}
+                  baseItemSize={baseItemSize}
+                >
+                  <DockIcon>{item.icon}</DockIcon>
+                  <DockLabel>{item.label}</DockLabel>
+                </DockItem>
+              ))}
+            </motion.div>
+          </motion.div>
     </motion.div>
   );
 }
-
-

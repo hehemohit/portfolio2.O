@@ -1,0 +1,170 @@
+.creative-components-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1;
+  position: absolute;
+  bottom: 10%;
+  right: 5%;
+  z-index: 1000;
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.creative-text {
+  color: #ffda03;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  text-shadow: 0 0 15px rgba(255, 218, 3, 0.6);
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.creative-components-container .components-badge {
+  position: relative;
+  background: linear-gradient(135deg, rgba(255, 218, 3, 0.9), rgba(255, 218, 3, 0.7));
+  color: #000000;
+  padding: 12px 18px;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  border: 1px solid rgba(255, 218, 3, 0.3);
+  box-shadow: 
+    0 6px 20px rgba(255, 218, 3, 0.4),
+    0 0 25px rgba(255, 218, 3, 0.3),
+    inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  width: fit-content !important;
+  min-width: fit-content !important;
+  max-width: none !important;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.creative-components-container .components-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 20px rgba(255, 218, 3, 0.4),
+    0 0 30px rgba(255, 218, 3, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.components-rotating-text {
+  color: #000000 !important;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Apply fade-out only to exiting text */
+.components-rotating-text .text-rotate-element {
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Smooth size transitions for all text elements */
+.components-rotating-text .text-rotate-word {
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.components-rotating-text .text-rotate-space {
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+
+
+/* Responsive adjustments */
+@media (max-width: 1920px) {
+  .creative-components-container {
+    bottom: 28%;
+    right: 3%;
+  }
+}
+
+@media (max-width: 1440px) {
+  .creative-components-container {
+    bottom: 12%;
+    right: 2%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .creative-components-container {
+    bottom: 10%;
+    right: 1%;
+    font-size: 18px;
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .creative-components-container .components-badge {
+    padding: 10px 16px;
+    font-size: 18px;
+    width: fit-content !important;
+    min-width: fit-content !important;
+    max-width: none !important;
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  }
+  
+  .creative-text {
+    font-size: 18px;
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+}
+
+@media (max-width: 768px) {
+  .creative-components-container {
+    bottom: 8%;
+    right: 2%;
+    font-size: 16px;
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .creative-components-container .components-badge {
+    padding: 8px 14px;
+    border-radius: 14px;
+    font-size: 16px;
+    width: fit-content !important;
+    min-width: fit-content !important;
+    max-width: none !important;
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  }
+  
+  .creative-text {
+    font-size: 16px;
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+}
+
+@media (max-width: 480px) {
+  .creative-components-container {
+    bottom: 5%;
+    right: 3%;
+    font-size: 14px;
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .creative-components-container .components-badge {
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 14px;
+    width: fit-content !important;
+    min-width: fit-content !important;
+    max-width: none !important;
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  }
+  
+  .creative-text {
+    font-size: 14px;
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+}

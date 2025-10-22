@@ -1,0 +1,293 @@
+/* Glassmorphism Timeline Styles */
+.glassmorphism-timeline-section {
+  padding: 100px 40px 120px;
+  margin: 0 68px;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  scroll-margin-top: 80px;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.timeline-main-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 80px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.timeline-main-title .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(110%);
+  animation: charSlideUp 0.8s ease-out forwards;
+}
+
+@keyframes charSlideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Vertical Progress Line */
+.timeline-vertical-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  transform: translateX(-50%);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.timeline-progress-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(180deg, #ffffff, #cccccc, #ffffff);
+  background-size: 100% 200%;
+  border-radius: 2px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+  animation: progressFlow 3s ease-in-out infinite;
+  transition: background 0.5s ease;
+}
+
+@keyframes progressFlow {
+  0%, 100% { background-position: 0% 0%; }
+  50% { background-position: 0% 100%; }
+}
+
+.timeline-scroll-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 120px;
+}
+
+.timeline-scroll-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  position: relative;
+  opacity: 0;
+  transform: translateY(100px) scale(0.8);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 2;
+}
+
+.timeline-scroll-item.timeline-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.timeline-scroll-item.timeline-hidden {
+  opacity: 0;
+  transform: translateY(100px) scale(0.8);
+}
+
+.timeline-scroll-item.timeline-reverse {
+  opacity: 0;
+  transform: translateY(-100px) scale(0.8);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.timeline-left {
+  grid-template-columns: 1fr 1fr;
+}
+
+.timeline-right {
+  grid-template-columns: 1fr 1fr;
+}
+
+.timeline-right .timeline-card {
+  order: 2;
+}
+
+.timeline-right .timeline-description {
+  order: 1;
+}
+
+.timeline-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(30px);
+  border: 1.6px solid rgba(255, 218, 3, 0.25);
+  border-radius: 28px;
+  padding: 40px 32px;
+  width: 240px;
+  height: 240px;
+  margin: 0 auto;
+  box-shadow: 
+    rgba(0, 0, 0, 0.4) 0px 15px 50px 0px,
+    rgba(255, 218, 3, 0.2) 0px 4px 16px 0px,
+    rgba(255, 255, 255, 0.2) 0px 2px 0px 0px inset,
+    rgba(0, 0, 0, 0.3) 0px -2px 0px 0px inset,
+    rgba(255, 255, 255, 0.1) 0px 0px 0px 1px;
+  transition: all 0.3s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.timeline-card:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 
+    rgba(0, 0, 0, 0.5) 0px 20px 60px 0px,
+    rgba(255, 218, 3, 0.3) 0px 6px 20px 0px,
+    rgba(255, 255, 255, 0.3) 0px 3px 0px 0px inset,
+    rgba(0, 0, 0, 0.4) 0px -3px 0px 0px inset,
+    rgba(255, 255, 255, 0.2) 0px 0px 0px 1px;
+}
+
+.glassmorphism-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  padding: 8px;
+  backdrop-filter: blur(15px);
+  border: 2px solid;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease, background-color 0.5s ease, border-color 0.5s ease, filter 0.5s ease;
+}
+
+.glassmorphism-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.glassmorphism-year {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 8px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.glassmorphism-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  line-height: 1.4;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.timeline-description {
+  max-width: 500px;
+}
+
+.timeline-desc-left {
+  text-align: right;
+}
+
+.timeline-desc-right {
+  text-align: left;
+}
+
+.description-content {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.description-content:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.description-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.description-text {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  margin: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .glassmorphism-timeline-section {
+    padding: 60px 20px 80px;
+    margin: 0 20px;
+  }
+  
+  .timeline-main-title {
+    font-size: 2rem;
+    margin-bottom: 60px;
+  }
+  
+  .timeline-scroll-item {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: center;
+  }
+  
+  .timeline-left,
+  .timeline-right {
+    grid-template-columns: 1fr;
+  }
+  
+  .timeline-right .timeline-card,
+  .timeline-right .timeline-description {
+    order: unset;
+  }
+  
+  .timeline-desc-left,
+  .timeline-desc-right {
+    text-align: center;
+  }
+  
+  .timeline-card {
+    width: 200px;
+    height: 200px;
+    padding: 30px 24px;
+  }
+  
+  .glassmorphism-icon {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .description-content {
+    padding: 20px;
+  }
+  
+  .description-title {
+    font-size: 1.5rem;
+  }
+  
+  .description-text {
+    font-size: 1rem;
+  }
+}

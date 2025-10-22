@@ -7,11 +7,21 @@ import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss } from 'react-icons/s
 import BlurText from './components/BlurText'
 import ClickSpark from './components/ClickSpark'
 import FluidGlass from './components/FluidGlass'
-import CardSwap, { Card } from './components/CardSwap'
 // import BottomNavbar from './components/BottomNavbar'
 import Dock from './components/Dock'
+import GlassmorphismTimeline from './components/GlassmorphismTimeline'
+import CreativeComponents from './components/CreativeComponents'
+import ProjectsSection from './components/ProjectsSection'
+import './components/SimpleCursor.css'
 import { VscHome, VscAccount, VscArchive, VscSettingsGear } from 'react-icons/vsc'
 import { FaGamepad } from 'react-icons/fa'
+import { 
+  FaGraduationCap, 
+  FaBriefcase, 
+  FaTrophy, 
+  FaCode, 
+  FaRocket 
+} from 'react-icons/fa'
  
 
 function App() {
@@ -21,45 +31,11 @@ function App() {
     // Simulate loading time
     const timer = setTimeout(() => {
       setIsLoading(false)
-      // Play gunshot sound when home page loads
-      playGunshotSound()
     }, 3000)
 
     return () => clearTimeout(timer)
   }, [])
 
-  const playGunshotSound = () => {
-    try {
-      // Create a gunshot sound using Web Audio API
-      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)()
-      
-      // Resume audio context if suspended (required for autoplay policies)
-      if (audioContext.state === 'suspended') {
-        audioContext.resume()
-      }
-      
-      // Create a buffer for the gunshot sound
-      const bufferSize = audioContext.sampleRate * 0.3 // 0.3 seconds
-      const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate)
-      const data = buffer.getChannelData(0)
-      
-      // Generate gunshot sound (sharp attack with quick decay)
-      for (let i = 0; i < bufferSize; i++) {
-        const t = i / audioContext.sampleRate
-        // Sharp attack with white noise and quick decay
-        const noise = (Math.random() * 2 - 1) * Math.exp(-t * 25)
-        data[i] = noise * 0.8 // Increased volume
-      }
-      
-      // Play the sound
-      const source = audioContext.createBufferSource()
-      source.buffer = buffer
-      source.connect(audioContext.destination)
-      source.start()
-    } catch (error) {
-      console.log('Audio not available:', error)
-    }
-  }
 
 
 
@@ -94,16 +70,35 @@ function App() {
 
   return (
     <ClickSpark
-      sparkColor='#ffda03'
-      sparkSize={12}
-      sparkRadius={20}
-      sparkCount={10}
-      duration={500}
-      easing='ease-out'
-      extraScale={1.2}
-    >
-             <div className="app-container">
-               <section id="home" className="home-section">
+        sparkColor='#ffda03'
+        sparkSize={12}
+        sparkRadius={20}
+        sparkCount={10}
+        duration={500}
+        easing='ease-out'
+        extraScale={1.2}
+      >
+    <div className="app-container">
+      <section id="home" className="home-section">
+        {/* Resume Button */}
+        <a 
+          href="https://drive.google.com/file/d/1EGU71Cs0YOFkQ7NjoSwZ9fv5GFaTUi5f/view?usp=sharing" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="resume-button"
+        >
+          <span className="resume-text">Resume</span>
+          <div className="resume-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.89 22 5.99 22H18C19.1 22 20 21.1 20 20V8L14 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M14 2V8H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M16 13H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M16 17H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M10 9H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+        </a>
+        
         <img 
           src={godfatherImage} 
           alt="The Godfather Movie Poster" 
@@ -128,87 +123,59 @@ function App() {
               animateBy="words"
               direction="top"
               className=""
-            />
-          </div>
+          />
         </div>
+            </div>
+        
+        {/* Creative Components at bottom of home section */}
+        <CreativeComponents />
             
           </section>
 
-      <section id="about" className="content-section">
-        <div style={{ height: '600px', position: 'relative' }}>
-          <CardSwap
-            cardDistance={60}
-            verticalDistance={70}
-            delay={5000}
-            pauseOnHover={false}
-            onCardClick={() => {}}
-          >
-            <Card style={{ 
-              background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(26,26,26,0.95) 100%)',
-              border: '1px solid rgba(255, 218, 3, 0.3)',
-              color: '#ffffff',
-              padding: '30px',
-              fontFamily: "'Rajdhani', sans-serif"
-            }}>
-              <h3 style={{ 
-                color: '#ffda03', 
-                fontSize: '1.8rem', 
-                marginBottom: '20px',
-                textShadow: '0 0 10px rgba(255, 218, 3, 0.5)'
-              }}>CINEMATIC VISION</h3>
-              <p style={{ 
-                lineHeight: '1.6', 
-                fontSize: '1.1rem',
-                textShadow: '1px 1px 3px rgba(0,0,0,0.8)'
-              }}>
-                Drawing inspiration from timeless masterpieces like The Godfather, I craft experiences that blend the golden age of filmmaking with modern innovation.
-              </p>
-            </Card>
-            <Card style={{ 
-              background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(26,26,26,0.95) 100%)',
-              border: '1px solid rgba(255, 218, 3, 0.3)',
-              color: '#ffffff',
-              padding: '30px',
-              fontFamily: "'Rajdhani', sans-serif"
-            }}>
-              <h3 style={{ 
-                color: '#ffda03', 
-                fontSize: '1.8rem', 
-                marginBottom: '20px',
-                textShadow: '0 0 10px rgba(255, 218, 3, 0.5)'
-              }}>STORYTELLING</h3>
-              <p style={{ 
-                lineHeight: '1.6', 
-                fontSize: '1.1rem',
-                textShadow: '1px 1px 3px rgba(0,0,0,0.8)'
-              }}>
-                Every project is a tribute to the art of storytelling, where every frame tells a story and every moment is crafted with precision.
-              </p>
-            </Card>
-            <Card style={{ 
-              background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(26,26,26,0.95) 100%)',
-              border: '1px solid rgba(255, 218, 3, 0.3)',
-              color: '#ffffff',
-              padding: '30px',
-              fontFamily: "'Rajdhani', sans-serif"
-            }}>
-              <h3 style={{ 
-                color: '#ffda03', 
-                fontSize: '1.8rem', 
-                marginBottom: '20px',
-                textShadow: '0 0 10px rgba(255, 218, 3, 0.5)'
-              }}>MODERN INNOVATION</h3>
-              <p style={{ 
-                lineHeight: '1.6', 
-                fontSize: '1.1rem',
-                textShadow: '1px 1px 3px rgba(0,0,0,0.8)'
-              }}>
-                Welcome to my cinematic world. I'm Mohit Jangid, a passionate creator who brings stories to life through the lens of classic cinema.
-              </p>
-            </Card>
-          </CardSwap>
-        </div>
-      </section>
+      {/* Blur effect between sections */}
+      <div className="section-blur"></div>
+
+      <section id="about" className="glassmorphism-about-section">
+        <GlassmorphismTimeline 
+          items={[
+            {
+              year: "2023",
+              title: "Started Engineering Journey",
+              description: "Enrolled in B.E. Computer Engineering at Universal College of Engineering, Mumbai. This marked the beginning of my journey into the world of technology and innovation.",
+              icon: <FaGraduationCap />,
+              color: "#00aaff"
+            },
+            {
+              year: "2024",
+              title: "Leadership Emergence",
+              description: "Took on leadership roles as Sports Head, organizing events for 1000+ students. Progressed from SAA&SH President to Joint Sports Head, developing leadership and management skills.",
+              icon: <FaTrophy />,
+              color: "#a259ff"
+            },
+            {
+              year: "Aug 2025",
+              title: "First Professional Step",
+              description: "Achieved 44.5% engagement growth across platforms, working with leading brands like Asian Paints and Proficio Therapy. Developed content strategies and brand campaigns.",
+              icon: <FaBriefcase />,
+              color: "#ffb300"
+            },
+             {
+               year: "Sep 2025",
+               title: "Technical Development & Leadership",
+               description: "Part of development of Agency Management Software (AMS) with direct collaboration with the founder and COO. Working closely on system architecture, feature planning, and technical implementation using React.js, Node.js, and MongoDB. Gained hands-on experience in full-stack development while contributing to strategic product decisions.",
+               icon: <FaCode />,
+               color: "#00c896"
+             },
+             {
+               year: "2026+",
+               title: "Future Vision",
+               description: "Expanding into Java development and software engineering while diving deep into cybersecurity. Learning advanced programming paradigms, secure coding practices, and system architecture. Pursuing certifications in cybersecurity and software development to become a well-rounded full-stack engineer with security expertise.",
+               icon: <FaRocket />,
+               color: "#ff4c60"
+             }
+           ]}
+         />
+       </section>
 
       {/* Logo Loop between About and Projects */}
       <section className="logo-loop-section">
@@ -234,74 +201,87 @@ function App() {
         </div>
       </section>
 
-      <section id="projects" className="content-section">
+      <ProjectsSection />
+
+      <section id="certificates" className="certificates-section">
         <div className="section-content">
-          <h2 className="section-title">PROJECTS</h2>
-          <div className="projects-grid">
-            <div className="project-card">
-              <h3>Cinematic Portfolio</h3>
-              <p>A collection of visual stories inspired by classic cinema, featuring dramatic lighting and compelling narratives.</p>
+          <h2 className="section-title">CERTIFICATES</h2>
+          <div className="certificates-grid">
+            <div className="certificate-card">
+              <h3>React Development</h3>
+              <p>Advanced React.js and modern web development practices</p>
+              <span className="certificate-date">2024</span>
             </div>
-            <div className="project-card">
-              <h3>Film Noir Collection</h3>
-              <p>Dark, atmospheric pieces that capture the essence of classic film noir with modern sensibilities.</p>
+            <div className="certificate-card">
+              <h3>TypeScript Fundamentals</h3>
+              <p>Type-safe JavaScript development and advanced patterns</p>
+              <span className="certificate-date">2024</span>
             </div>
-            <div className="project-card">
-              <h3>Golden Age Revival</h3>
-              <p>Contemporary works that pay homage to the golden age of Hollywood with a fresh perspective.</p>
+            <div className="certificate-card">
+              <h3>Full-Stack Development</h3>
+              <p>Complete web application development with Node.js and MongoDB</p>
+              <span className="certificate-date">2025</span>
+            </div>
+            <div className="certificate-card">
+              <h3>Cybersecurity Fundamentals</h3>
+              <p>Secure coding practices and system security principles</p>
+              <span className="certificate-date">2025</span>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="fluidglass" className="fluidglass-section">
+      <section id="contact" className="contact-section">
         <div className="section-content">
-          <h2 className="section-title">FLUID GLASS</h2>
-          <div style={{ height: '600px', position: 'relative' }}>
-            <FluidGlass 
-              mode="lens"
-              lensProps={{
-                scale: 0.4,
-                ior: 1.5,
-                thickness: 8,
-                chromaticAberration: 0.3,
-                anisotropy: 0.05,
-                transmission: 1,
-                roughness: 0,
-                color: '#ffffff',
-                attenuationColor: '#ffffff',
-                attenuationDistance: 0.2
-              }}
-            />
+          <h2 className="section-title">CONTACT ME</h2>
+          <div className="contact-content">
+            <div className="contact-info">
+              <h3>Let's Connect</h3>
+              <p>Ready to collaborate on your next project? I'm always excited to work on innovative solutions and bring ideas to life.</p>
+              <div className="contact-details">
+                <div className="contact-item">
+                  <strong>Email:</strong> mohitjangid@example.com
+                </div>
+                <div className="contact-item">
+                  <strong>LinkedIn:</strong> linkedin.com/in/mohitjangid
+                </div>
+                <div className="contact-item">
+                  <strong>GitHub:</strong> github.com/mohitjangid
+                </div>
+              </div>
+            </div>
+            <div className="contact-form">
+              <form>
+                <div className="form-group">
+                  <input type="text" placeholder="Your Name" required />
+                </div>
+                <div className="form-group">
+                  <input type="email" placeholder="Your Email" required />
+                </div>
+                <div className="form-group">
+                  <textarea placeholder="Your Message" rows="5" required></textarea>
+                </div>
+                <button type="submit" className="submit-btn">Send Message</button>
+              </form>
+            </div>
           </div>
         </div>
       </section>
-
-      <section id="funtime" className="content-section">
-        <div className="section-content">
-          <h2 className="section-title">FUNTIME</h2>
-          <div className="section-text">
-            <p>When I'm not creating cinematic masterpieces, you'll find me exploring the world of classic films, discovering hidden gems, and sharing my passion for storytelling.</p>
-            <p>From analyzing the cinematography of Kubrick to discussing the narrative techniques of Coppola, every moment is an opportunity to learn and grow.</p>
-            <p>Join me on this journey through the art of cinema, where every frame is a work of art and every story is worth telling.</p>
-          </div>
-        </div>
-               </section>
-             </div>
+    </div>
              <Dock 
                items={[
                  { icon: <VscHome size={18} />, label: 'Home', onClick: () => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' }) },
-                 { icon: <VscAccount size={18} />, label: 'About', onClick: () => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) },
+                 { icon: <VscAccount size={18} />, label: 'About', className: 'futuristic-about-btn', onClick: () => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) },
                  { icon: <VscArchive size={18} />, label: 'Projects', onClick: () => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }) },
-                 { icon: <VscSettingsGear size={18} />, label: 'Fluid', onClick: () => document.getElementById('fluidglass')?.scrollIntoView({ behavior: 'smooth' }) },
-                 { icon: <FaGamepad size={18} />, label: 'Funtime', onClick: () => document.getElementById('funtime')?.scrollIntoView({ behavior: 'smooth' }) },
+                 { icon: <FaGraduationCap size={18} />, label: 'Certificates', onClick: () => document.getElementById('certificates')?.scrollIntoView({ behavior: 'smooth' }) },
+                 { icon: <VscSettingsGear size={18} />, label: 'Contact', onClick: () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) },
                ]}
                panelHeight={68}
                baseItemSize={50}
                magnification={70}
              />
            </ClickSpark>
-         )
-       }
+  )
+}
 
 export default App

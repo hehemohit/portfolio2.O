@@ -74,4 +74,66 @@
   transform: translateX(-50%);
 }
 
+/* Glassmorphism About Button Styling */
+.dock-item.futuristic-about-btn {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(30px);
+  border: 1.6px solid rgba(255, 218, 3, 0.25);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    rgba(0, 0, 0, 0.4) 0px 15px 50px 0px,
+    rgba(255, 218, 3, 0.2) 0px 4px 16px 0px,
+    rgba(255, 255, 255, 0.2) 0px 2px 0px 0px inset,
+    rgba(0, 0, 0, 0.3) 0px -2px 0px 0px inset,
+    rgba(255, 255, 255, 0.1) 0px 0px 0px 1px;
+  transition: all 0.3s ease;
+}
+
+.dock-item.futuristic-about-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 218, 3, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.dock-item.futuristic-about-btn:hover::before {
+  left: 100%;
+}
+
+.dock-item.futuristic-about-btn .dock-icon {
+  color: rgba(255, 218, 3, 0.9);
+  filter: drop-shadow(0 0 5px rgba(255, 218, 3, 0.3));
+  transition: all 0.3s ease;
+}
+
+.dock-item.futuristic-about-btn:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 
+    rgba(0, 0, 0, 0.5) 0px 20px 60px 0px,
+    rgba(255, 218, 3, 0.3) 0px 6px 20px 0px,
+    rgba(255, 255, 255, 0.3) 0px 3px 0px 0px inset,
+    rgba(0, 0, 0, 0.4) 0px -3px 0px 0px inset,
+    rgba(255, 255, 255, 0.2) 0px 0px 0px 1px;
+}
+
+.dock-item.futuristic-about-btn:hover .dock-icon {
+  color: #ffda03;
+  filter: drop-shadow(0 0 10px rgba(255, 218, 3, 0.5)) drop-shadow(0 0 20px rgba(255, 218, 3, 0.3));
+}
+
+.dock-item.futuristic-about-btn .dock-label {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(30px);
+  border: 1.6px solid rgba(255, 218, 3, 0.25);
+  color: #ffffff;
+  box-shadow: 
+    rgba(0, 0, 0, 0.4) 0px 15px 50px 0px,
+    rgba(255, 218, 3, 0.2) 0px 4px 16px 0px;
+}
+
 
